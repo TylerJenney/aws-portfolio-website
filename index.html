@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler Jenney - Cloud & IT Professional</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tyler Jenney</h1>
+            <p>Cloud & IT Professional | AWS Certified</p>
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        </header>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Welcome to my online portfolio! I specialize in Cloud Computing, Networking, and IT Infrastructure. Passionate about AWS, automation, and problem-solving.</p>
+            <a href="https://d3aeszqtct35l2.cloudfront.net/Tyler_Jenney_Resume.pdf" class="resume-btn" download>Download My Resume (PDF)</a>
+        </section>
+
+        <section id="visitor-count">
+            <h2>Visitor Count: <span id="count">Loading...</span></h2>
+        </section>
+
+        <section id="experience">
+    <h2>Experience</h2>
+    <ul>
+        <li><strong>Cloud Intern - WestRock</strong> (May - Aug 2024)
+            <p>Before my internship at WestRock, my knowledge of cloud computing was limited. However, working with a highly skilled and knowledgeable Cloud Center of Excellence (CCoE) team, I gained invaluable hands-on experience in AWS and cloud technologies. I learned how to architect and manage cloud environments, optimize infrastructure for cost and performance, and implement security best practices. Collaborating with experts in the field allowed me to develop technical proficiency in cloud automation, monitoring, and compliance while also strengthening my problem-solving and analytical skills.</p>
+        </li>
+        
+        <li><strong>Server - Topgolf</strong> (Customer Service & Sales)
+            <p>At Topgolf, I refined my <strong>soft skills</strong>, including <strong>customer service, communication, problem-solving, and teamwork</strong>. I learned how to work in a <strong>fast-paced environment</strong>, effectively <strong>handle customer interactions</strong>, and develop strong <strong>time management and adaptability</strong> skills. These experiences have helped me build a <strong>customer-focused mindset</strong> and enhance my ability to work in diverse team environments.</p>
+        </li>
+    </ul>
+</section>
+
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <ul>
+                <li>AWS (EC2, S3, Route 53, CloudFront, IAM, CLI, DynamoDB, Lambda, API Gateway, and more!)</li>
+                <li>Microsoft Azure (Virtual Machines, Blob Storage, Virtual Networks, RBAC, Security Best Practices)</li>
+                <li>Networking & Security</li>
+                <li>Bash Scripting & Automation</li>
+            </ul>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <ul>
+                <li><strong>Network Design Project:</strong> Designed a subnetted network with security policies.</li>
+                <li><strong>Recon & Vulnerability Scanner:</strong> Built a Linux-based security tool using Bash.</li>
+            </ul>
+        </section>
+
+        <section id="website-build">
+            <h2>How This Website Was Built</h2>
+            <p>This website is built using AWS cloud services:</p>
+            <ul>
+                <li><strong>Amazon S3:</strong> Static website hosting</li>
+                <li><strong>Route 53:</strong> Custom domain management</li>
+                <li><strong>CloudFront:</strong> Global content delivery</li>
+                <li><strong>AWS Lambda, API Gateway & DynamoDB:</strong> Serverless visitor counter</li>
+                <li><strong>IAM (Identity and Access Management):</strong> Controls permissions for each service</li>
+            </ul>
+            <p>
+                This website is hosted on AWS using Amazon S3 for static site hosting, CloudFront for global content delivery and SSL security, and Route 53 for domain management. 
+                A serverless visitor counter is implemented using API Gateway, AWS Lambda (Python), and DynamoDB to track site visits. Security is enforced through IAM roles, bucket policies, and CORS settings.
+                The resume download is served via CloudFront, ensuring fast and secure access. This architecture provides a scalable, cost-efficient, and high-performance web solution fully powered by AWS.
+            </p>
+            <p><strong>I will be constantly expanding this website with new features that use all sorts of AWS services in the future!</strong></p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>Connect with me on <a href="https://www.linkedin.com/in/tyler-jenney/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+        </section>
+    </div>
+
+    <script>
+        async function getVisitorCount() {
+            try {
+                const response = await fetch("https://6hnowjtgu2.execute-api.us-east-1.amazonaws.com/prod/VisitorCounter", { 
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                document.getElementById("count").innerText = data.visitorCount;
+            } catch (error) {
+                console.error("Error fetching visitor count:", error);
+                document.getElementById("count").innerText = "Error loading count";
+            }
+        }
+
+        getVisitorCount();
+    </script>
+</body>
+</html>
